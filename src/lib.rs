@@ -97,17 +97,17 @@ pub struct Book {
 
 impl Book {
     /// Returns the books' unique id
-    fn id(&self) -> &BookId {
+    pub fn id(&self) -> &BookId {
         &self.id
     }
 
     /// Returns the book's title
-    fn title(&self) -> &String {
+    pub fn title(&self) -> &String {
         &self.title
     }
 
     /// Set the title of the book to the given string
-    fn set_title(&mut self, title: String) {
+    pub fn set_title(&mut self, title: String) {
         self.title = title;
     }
 }
