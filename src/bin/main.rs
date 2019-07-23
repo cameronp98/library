@@ -22,9 +22,11 @@ fn main() -> LibraryResult<()> {
 
 
     if let Some(_matches) = matches.subcommand_matches("init") {
+        // Create and save new library file
         Library::new().save(LIBFILE_PATH)?;
         println!("{} initialised", LIBFILE_PATH);
     } else if let Some(_matches) = matches.subcommand_matches("list") {
+        // Load library and list all books
         let library = Library::from_file(LIBFILE_PATH)?;
         println!("{} loaded", LIBFILE_PATH);
         println!("Book listing: \n");
