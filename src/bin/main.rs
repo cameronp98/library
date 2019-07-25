@@ -14,12 +14,10 @@ fn main() -> LibraryResult<()> {
         .about("Library stock management")
         .subcommand(
             SubCommand::with_name("init")
-                .about("Initialise this directory with a new library file"))
-        .subcommand(
-            SubCommand::with_name("list")
-                .about("List all collected books"))
-    .get_matches();
-
+                .about("Initialise this directory with a new library file"),
+        )
+        .subcommand(SubCommand::with_name("list").about("List all collected books"))
+        .get_matches();
 
     if let Some(_matches) = matches.subcommand_matches("init") {
         // Create and save new library file

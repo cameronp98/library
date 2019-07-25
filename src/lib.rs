@@ -18,7 +18,7 @@ pub use error::{LibraryError, LibraryResult};
 pub type BookId = usize;
 
 /// A collection of books
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Default)]
 pub struct Library {
     id_counter: usize,
     books: HashMap<BookId, Book>,
@@ -60,25 +60,25 @@ impl Library {
     }
 
     /// Check if the library contains the book with the given id
-    pub fn has_book(&self, id: &BookId) -> bool {
-        self.books.contains_key(id)
+    pub fn has_book(&self, id: BookId) -> bool {
+        self.books.contains_key(&id)
     }
 
     /// Returns a reference to the book with the given id
-    pub fn get_book(&mut self, id: &BookId) -> LibraryResult<&Book> {
-        self.books.get(id).ok_or(LibraryError::BookNotFound(*id))
+    pub fn get_book(&mut self, id: BookId) -> LibraryResult<&Book> {
+        self.books.get(&id).ok_or(LibraryError::BookNotFound(id))
     }
 
     /// Returns a mutable reference to the book with the given id
-    pub fn get_book_mut(&mut self, id: &BookId) -> LibraryResult<&mut Book> {
+    pub fn get_book_mut(&mut self, id: BookId) -> LibraryResult<&mut Book> {
         self.books
-            .get_mut(id)
-            .ok_or(LibraryError::BookNotFound(*id))
+            .get_mut(&id)
+            .ok_or(LibraryError::BookNotFound(id))
     }
 
     /// Remove the book with the given id from the library
-    pub fn remove_book(&mut self, id: &BookId) -> LibraryResult<Book> {
-        self.books.remove(id).ok_or(LibraryError::BookNotFound(*id))
+    pub fn remove_book(&mut self, id: BookId) -> LibraryResult<Book> {
+        self.books.remove(&id).ok_or(LibraryError::BookNotFound(id))
     }
 
     /// Returns an iterator over all books in the library (unordered)
@@ -86,7 +86,6 @@ impl Library {
         self.books.values()
     }
 }
-
 
 /// A book with an id and a title
 #[derive(Serialize, Deserialize, Debug)]
